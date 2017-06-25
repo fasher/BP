@@ -1,0 +1,13 @@
+---
+- name: Install gunicorn and supervisord
+  become: yes
+  apt: pkg={{item}} state=installed
+  with_items:
+    - gunicorn
+    - supervisor
+    - python-pip
+
+- name: install flask
+  become: yes
+  pip: name=flask
+

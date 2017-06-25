@@ -1,0 +1,16 @@
+---
+- name: copy app to destination dir
+  copy: src={{ app_name }}-app dest=/home/vagrant owner=vagrant mode=0755
+
+- name: setup supervisord conf
+  template:
+    src: supervisord.conf.j2
+    dest: /etc/supervisor/conf.d/{{ app_name }}.conf
+    owner: root
+    mode: 0644
+
+- name: reload supervisord
+  supervisorctl: name={{ app_name }} state=present
+
+- name: start app {{ app_name }}
+  supervisorctl: name={{ app_name }} state=restarted
