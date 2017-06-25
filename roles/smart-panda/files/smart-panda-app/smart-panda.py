@@ -4,6 +4,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+global counter
 counter = 0
 
 @app.route('/',defaults={'path': '' }, methods=['POST'])
@@ -18,5 +19,4 @@ def count_posts(path):
 @app.route('/<path:path>',methods=['GET'])
 def show_count(path):
   global counter
-  counter += 1
   return  str(counter) + ' counted'
